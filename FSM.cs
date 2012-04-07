@@ -1,28 +1,28 @@
 using UnityEngine;
 using System.Collections;
 
-public class FSM {
-	private Entity m_Owner;
-	private State  m_CurrentState;
-	private State  m_PreviousState;
-	private State  m_GlobalState;
+public class FSM<T> {
+	private T m_Owner;
+	private State<T>  m_CurrentState;
+	private State<T>  m_PreviousState;
+	private State<T>  m_GlobalState;
 	
-	public FSM (Entity owner) {
+	public FSM (T owner) {
 		m_Owner = owner;
 		m_CurrentState = null;
 		m_PreviousState = null;
 		m_GlobalState = null;
 	}
 	
-	public void SetCurrentState (State s) {
+	public void SetCurrentState (State<T> s) {
 		m_CurrentState = s;
 	}
 	
-	public void SetGlobalState (State s) {
+	public void SetGlobalState (State<T> s) {
 		m_GlobalState = s;
 	}
 	
-	public void SetPreviousState (State s) {
+	public void SetPreviousState (State<T> s) {
 		m_PreviousState = s;
 	}
 	
@@ -37,7 +37,7 @@ public class FSM {
 		}
 	}
 	
-	public void ChangeState (State newState) {
+	public void ChangeState (State<T> newState) {
 		if (newState == null)
 			return;
 		m_PreviousState = m_CurrentState;
@@ -50,15 +50,15 @@ public class FSM {
 		ChangeState (m_PreviousState);
 	}
 	
-	public State getCurrentState () {
+	public State<T> getCurrentState () {
 		return m_CurrentState;
 	}
 	
-	public State getGlobalState () {
+	public State<T> getGlobalState () {
 		return m_GlobalState;
 	}
 	
-	public State getPreviousState () {
+	public State<T> getPreviousState () {
 		return m_PreviousState;
 	}
 }
