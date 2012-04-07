@@ -7,10 +7,11 @@ public class Idle : State {
 	
 	public override void Execute (Entity context) {
 		count++;
-		if (count > 30) {
+		if (count > 10) {
 			context.ChangeState(new Patrol());
 			count = 0;
 		}
+		context.SetDirection(Vector3.zero);
 	}
 	
 	public override void Enter (Entity context) {

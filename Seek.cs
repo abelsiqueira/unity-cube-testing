@@ -1,10 +1,11 @@
 using UnityEngine;
 using System.Collections;
 
-public class Patrol : State {
+public class Seek : State {
 	
 	private int count = 0;
 	private Transform transform;
+	private Transform seek;
 	private Vector3 direction;
 	
 	public override void Execute (Entity context) {
@@ -15,6 +16,7 @@ public class Patrol : State {
 		}
 		
 		transform = context.transform;
+		//seek = context.seek;
 		direction = 3.0f*Vector3.forward;
 		direction = transform.TransformDirection(direction);
 		context.SetDirection(direction);
