@@ -1,28 +1,28 @@
 using UnityEngine;
 using System.Collections;
 
-public class FSM<T> {
-	private T m_Owner;
-	private State<T>  m_CurrentState;
-	private State<T>  m_PreviousState;
-	private State<T>  m_GlobalState;
+public class FSM {
+	private Entity m_Owner;
+	private State  m_CurrentState;
+	private State  m_PreviousState;
+	private State  m_GlobalState;
 	
-	public FSM (T owner) {
+	public FSM (Entity owner) {
 		m_Owner = owner;
 		m_CurrentState = null;
 		m_PreviousState = null;
 		m_GlobalState = null;
 	}
 	
-	public void SetCurrentState (State<T> s) {
+	public void SetCurrentState (State s) {
 		m_CurrentState = s;
 	}
 	
-	public void SetGlobalState (State<T> s) {
+	public void SetGlobalState (State s) {
 		m_GlobalState = s;
 	}
 	
-	public void SetPreviousState (State<T> s) {
+	public void SetPreviousState (State s) {
 		m_PreviousState = s;
 	}
 	
@@ -37,7 +37,7 @@ public class FSM<T> {
 		}
 	}
 	
-	public void ChangeState (State<T> newState) {
+	public void ChangeState (State newState) {
 		if (newState == null)
 			return;
 		m_PreviousState = m_CurrentState;
@@ -50,15 +50,15 @@ public class FSM<T> {
 		ChangeState (m_PreviousState);
 	}
 	
-	public State<T> getCurrentState () {
-		return m_CurrentState;
+	public int getCurrentState () {
+		return m_CurrentState.getState();
 	}
 	
-	public State<T> getGlobalState () {
-		return m_GlobalState;
+	public int getGlobalState () {
+		return m_GlobalState.getState();
 	}
 	
-	public State<T> getPreviousState () {
-		return m_PreviousState;
+	public int getPreviousState () {
+		return m_PreviousState.getState();
 	}
 }

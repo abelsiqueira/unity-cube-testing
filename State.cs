@@ -1,10 +1,27 @@
 using UnityEngine;
 using System;
 
-public abstract class State<T> {
-	public abstract void Execute (T context);
+
+
+public abstract class State {
 	
-	public abstract void Enter (T context);
+	//public enum states {en_Idle, en_Pursue, en_Flee};
+	protected int state;
 	
-	public abstract void Exit (T context);
+	public int getState () {
+		return state;
+	}
+	
+	public bool isState (int st) {
+		if (state == st)
+			return true;
+		else
+			return false;
+	}
+	
+	public abstract void Execute (Entity context);
+	
+	public abstract void Enter (Entity context);
+	
+	public abstract void Exit (Entity context);
 }
