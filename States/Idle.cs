@@ -4,7 +4,7 @@ using System.Collections;
 
 public class Idle : State {
 	
-	public void Awake () {
+	public Idle () {
 		state = 0;
 	}
 		
@@ -13,7 +13,7 @@ public class Idle : State {
 	}
 	
 	public override void Enter (Entity context) {
-		Debug.Log("Enter " + context.name);
+		Debug.Log("Enter Idle");
 	}
 	
 	public override void Exit (Entity context) {

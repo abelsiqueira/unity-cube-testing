@@ -1,18 +1,18 @@
 using UnityEngine;
 using System.Collections;
 
-public class Flee : State {
+public class Pursue : State {
 	
 	private Transform transform;
 	private Transform target;
 	private Vector3 direction;
 	
-	public void Awake () {
-		state = 2;
+	public Pursue () {
+		state = 1;
 	}
 	
 	public override void Enter (Entity context) {
-		Debug.Log("Enter Patrol");
+		Debug.Log("Enter Pursue");
 	}
 	
 	public override void Execute (Entity context) {
@@ -20,7 +20,7 @@ public class Flee : State {
 		transform = context.transform;
 		direction = target.position - transform.position;
 		direction.y = 0;
-		direction = -2.0f*direction.normalized;
+		direction = 1.0f*direction.normalized;
 		context.SetDirection(direction);
 	}
 	

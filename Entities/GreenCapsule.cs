@@ -17,16 +17,11 @@ public class GreenCapsule : Entity {
 	public IEnumerator UpdateGreenCapsule() {
 		while (true) {
 			float dist = DistanceToMedrash();
-			switch(fsm.getCurrentState()) {
-			case 0:
-				if (dist < r)
-					fsm.ChangeState(new Pursue());
-				break;
-			case 1:
-				if (dist > R)
-					fsm.ChangeState(new Idle());
-				break;
-			}
+			if ( (fsm.getCurrentState() == 0) && (dist < r) )
+				fsm.ChangeState(new Pursue());
+			else if ( (fsm.getCurrentState() == 1) && (dist > R) )
+				fsm.ChangeState(new Idle());
+
 			yield return new WaitForSeconds(0.1f);
 		}
 	}
