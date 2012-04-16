@@ -7,8 +7,14 @@ public class Pursue : State {
 	private Transform target;
 	private Vector3 direction;
 	
-	public Pursue () {
-		state = 1;
+	private static Pursue instance = new Pursue();
+	
+	public static Pursue Instance() {
+		return instance;
+	}
+	
+	private Pursue () {
+		state = states.en_Pursue;
 	}
 	
 	public override void Enter (Entity context) {
@@ -20,8 +26,10 @@ public class Pursue : State {
 		transform = context.transform;
 		direction = target.position - transform.position;
 		direction.y = 0;
-		direction = 1.0f*direction.normalized;
+		direction = 2.0f*direction.normalized;
 		context.SetDirection(direction);
+		//context.SetFace(direction);
+		//context.transform.forward = direction;
 	}
 	
 	public override void Exit (Entity context) {

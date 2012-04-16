@@ -8,7 +8,7 @@ public class GreenCapsule : Entity {
 	}
 	
 	void Start () {
-		fsm.SetCurrentState (new Idle());
+		fsm.SetCurrentState (Idle.Instance());
 		controller = GetComponent<CharacterController>();
 		StartCoroutine(fsm.UpdateFSM());
 		StartCoroutine(UpdateGreenCapsule());
@@ -16,12 +16,14 @@ public class GreenCapsule : Entity {
 	
 	public IEnumerator UpdateGreenCapsule() {
 		while (true) {
-			float dist = DistanceToMedrash();
-			if ( (fsm.getCurrentState() == 0) && (dist < r) )
-				fsm.ChangeState(new Pursue());
-			else if ( (fsm.getCurrentState() == 1) && (dist > R) )
-				fsm.ChangeState(new Idle());
-
+			switch (fsm.getCurrentState()) {
+			case State.states.en_Idle:
+				IdleVerifications();
+				break;
+			case State.states.en_Pursue:
+				PursueVerifications();
+				break;
+			}
 			yield return new WaitForSeconds(0.1f);
 		}
 	}
@@ -29,6 +31,18 @@ public class GreenCapsule : Entity {
 	private float DistanceToMedrash () {
 		Vector3 d = medrash.transform.position - transform.position;
 		return d.magnitude;
+	}
+	
+	private void IdleVerifications () {
+		float dist = DistanceToMedrash();
+		if (dist < r)
+			fsm.ChangeState(Pursue.Instance());
+	}
+	
+	private void PursueVerifications () {
+		float dist = DistanceToMedrash();
+		if (dist > R)
+			fsm.ChangeState(Idle.Instance());
 	}
 	
 }

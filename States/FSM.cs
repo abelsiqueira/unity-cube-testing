@@ -50,15 +50,15 @@ public class FSM {
 		ChangeState (m_PreviousState);
 	}
 	
-	public int getCurrentState () {
+	public State.states getCurrentState () {
 		return m_CurrentState.getState();
 	}
 	
-	public int getGlobalState () {
+	public State.states getGlobalState () {
 		return m_GlobalState.getState();
 	}
 	
-	public int getPreviousState () {
+	public State.states getPreviousState () {
 		return m_PreviousState.getState();
 	}
 }

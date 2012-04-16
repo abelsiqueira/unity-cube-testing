@@ -7,8 +7,14 @@ public class Flee : State {
 	private Transform target;
 	private Vector3 direction;
 	
-	public Flee () {
-		state = 2;
+	private static Flee instance = new Flee();
+	
+	public static Flee Instance() {
+		return instance;
+	}
+	
+	private Flee () {
+		state = states.en_Flee;
 	}
 	
 	public override void Enter (Entity context) {

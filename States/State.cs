@@ -1,18 +1,16 @@
 using UnityEngine;
 using System;
 
-
-
 public abstract class State {
 	
-	//public enum states {en_Idle, en_Pursue, en_Flee};
-	protected int state;
+	public enum states {en_Idle, en_Pursue, en_Flee};
+	protected states state;
 	
-	public int getState () {
+	public states getState () {
 		return state;
 	}
 	
-	public bool isState (int st) {
+	public bool isState (states st) {
 		if (state == st)
 			return true;
 		else

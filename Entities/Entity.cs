@@ -13,7 +13,7 @@ public class Entity : MonoBehaviour {
 	
 	public GameObject medrash;
 	protected CharacterController controller;
-	protected Vector3 direction;
+	protected Vector3 direction, face;
 	protected float d = 1.0f, r = 2.0f, R = 10.0f;
 	protected FSM fsm;	
 	
@@ -30,7 +30,9 @@ public class Entity : MonoBehaviour {
 	}
 	
 	public void Update () {
-		controller.Move(Time.deltaTime * direction);
+		controller.SimpleMove(direction);
+		//controller.Move(Time.deltaTime*direction);
+		transform.forward = Vector3.Slerp(transform.forward, face, 2.0f*Time.deltaTime);
 	}
 	
 	public CharacterController GetController () {
@@ -39,5 +41,9 @@ public class Entity : MonoBehaviour {
 	
 	public void SetDirection (Vector3 v) {
 		direction = v;
+	}
+	
+	public void SetFace (Vector3 v) {
+		face = v;
 	}
 }

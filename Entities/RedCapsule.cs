@@ -8,7 +8,7 @@ public class RedCapsule : Entity {
 	}
 	
 	void Start () {
-		fsm.SetCurrentState (new Idle());
+		fsm.SetCurrentState (Idle.Instance());
 		controller = GetComponent<CharacterController>();
 		StartCoroutine(fsm.UpdateFSM());
 		StartCoroutine(UpdateRedCapsule());
@@ -16,15 +16,12 @@ public class RedCapsule : Entity {
 	
 	public IEnumerator UpdateRedCapsule() {
 		while (true) {
-			float dist = DistanceToMedrash();
 			switch(fsm.getCurrentState()) {
-			case 0:
-				if (dist < r)
-					fsm.ChangeState(new Flee());
+			case State.states.en_Idle:
+				IdleVerifications();
 				break;
-			case 2:
-				if (dist > R)
-					fsm.ChangeState(new Idle());
+			case State.states.en_Flee:
+				FleeVerifications();
 				break;
 			}
 			yield return new WaitForSeconds(0.1f);
@@ -34,6 +31,18 @@ public class RedCapsule : Entity {
 	private float DistanceToMedrash () {
 		Vector3 d = medrash.transform.position - transform.position;
 		return d.magnitude;
+	}
+	
+	private void IdleVerifications () {
+		float dist = DistanceToMedrash();
+		if (dist < r)
+			fsm.ChangeState(Flee.Instance());
+	}
+	
+	private void FleeVerifications () {
+		float dist = DistanceToMedrash();
+		if (dist > R)
+			fsm.ChangeState(Idle.Instance());
 	}
 	
 }

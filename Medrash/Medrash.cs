@@ -21,10 +21,14 @@ public class Medrash : MonoBehaviour {
 			position = transform.position;
 			position.x += dx;
 			position.z += dz;
+			while (Physics.Raycast(position, -Vector3.up, 1.0f))
+			    position.y += 1.0f;
+			
 			if (i%2 == 0)
 				inst = (GameObject) Instantiate(GreenCapsule, position, transform.rotation);
 			else
 				inst = (GameObject) Instantiate(RedCapsule, position, transform.rotation);
+			
 			entity = inst.GetComponent<Entity>();
 			entity.SetMedrash(this.gameObject);
 			ListOfEnemies.Add(entity);
